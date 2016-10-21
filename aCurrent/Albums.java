@@ -9,7 +9,7 @@ import java.util.Arrays;
  * Created by mayur on 16/10/16.
  */
 public class Albums {
-    int changes;
+    int changes = 10;
     public static void main(String[] args) throws Exception {
         Reader in = new Reader();
         int N = in.nextInt();

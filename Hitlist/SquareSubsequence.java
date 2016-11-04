@@ -1,55 +1,77 @@
 package Hitlist;
 
-import java.util.Scanner;
+import MyImplementations.PrintMat;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by mayur on 26/7/16.
  */
 public class SquareSubsequence {
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int casea = in.nextInt();
-        for (int i = 0; i < casea; i++) {
-            String ip = in.next();
-            System.out.println(new SquareSubsequenceSolver().solve(ip));
-        }
+//        Scanner in = new Scanner(System.in);
+//        int casea = in.nextInt();
+//        for (int i = 0; i < casea; i++) {
+//            String ip = in.next();
+//            System.out.println(new SquareSubsequenceSolver().solve(ip));
+//        }
+        System.out.println(new SquareSubsequenceSolver().solve("abab"));
     }
 }
 
 class SquareSubsequenceSolver {
 
-    public long longestCommonSubsequence(String one, String two) {
-        long[][] dp = new long[one.length() + 1][two.length() + 1];
-        long max = -1;
-        for (int i = 1; i < one.length() + 1; i++) {
-            for (int j = 1; j < two.length() + 1; j++) {
-                if (one.charAt(i - 1) == two.charAt(j - 1)) {
-                    if (j > 1 && (dp[i - 1][j - 1] >= one.length() || dp[i][j - 1] >= one.length()))
-                        dp[i][j] = Math.max(dp[i - 1][j - 1] + 1, one.charAt(i - 1) == two.charAt(j - 2) ? dp[i][j - 1] + 1 : 0);
-                    else
-                        dp[i][j] = dp[i - 1][j - 1] + 1;
-                } else {
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+    public Set<Integer> alreadyVisited = new HashSet<Integer>();
+
+    public int hash(int x, int y) {
+        return x * 7 + 12 * y - 3;
+    }
+
+    public long commonSubsequence(String input) {
+        long[][][] dp = new long[input.length() - 1][input.length()][input.length()];
+        long answer = 0;
+        int j = 0, k = 0;
+        int limitOne = 1;
+        int limitTwo = input.length() - 1;
+        for (int i = 0; i < input.length() - 1; i++, limitOne++, limitTwo--) {
+            for (j = 0; j < limitOne; j++) {
+                for (k = 0; k < limitTwo; k++) {
+                    System.out.println("comparing : " + input.charAt(j) + " with " + input.charAt(k + limitOne));
+                    if (input.charAt(j) == input.charAt(k + limitOne)) {
+                        if (i > 0) {
+                            // last column
+                            if (j == limitOne - 1) {
+                                if (dp[i - 1][j - 1][k] > 0 && k > 0) {
+                                    dp[i][j][k] = dp[i - 1][j - 1][k] + 1;
+                                    answer += dp[i - 1][j - 1][k] + 1;
+                                } else {
+                                    dp[i][j][k] = 1;
+                                    answer++;
+                                }
+                            } else {
+                                if (dp[i - 1][j][k + 1] > 0) {
+                                    dp[i][j][k] = 1;
+                                } else {
+                                    dp[i][j][k] = 1;
+                                    answer++;
+                                }
+                            }
+                        } else {
+                            dp[i][j][k] = 1;
+                            answer++;
+                        }
+                    }
                 }
-                max = Math.max(max, dp[i][j]);
             }
+            new PrintMat(dp[i]);
         }
-        return max;
+        return answer;
     }
 
     public long solve(String ip) {
         long ans = 0;
-        for (int i = 1; i < ip.length(); i++) {
-            ans += longestCommonSubsequence(ip.substring(0, i), ip.substring(i, ip.length()));
-        }
-        return ans;
-    }
+        return commonSubsequence(ip);
 
-    private long countUniqueSubsequences(String substring1, String substring2) {
-        int k = 0;
-        while (substring1.charAt(k) != substring2.charAt(0)) {
-            k++;
-        }
-        return longestCommonSubsequence(substring1.substring(k, substring1.length()), substring2);
     }
 }

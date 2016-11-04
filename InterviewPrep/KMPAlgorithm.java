@@ -1,4 +1,4 @@
-package aCurrent;
+package InterviewPrep;
 
 /**
  * Created by mayur on 22/10/16.

@@ -1,8 +1,9 @@
 import Utils.BladeReader;
 
-import java.util.Comparator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by mayur on 8/11/16.
@@ -16,7 +17,7 @@ public class GiftAndChef {
     }
 }
 
-class Pipe implements Comparator<Pipe> {
+class Pipe implements Comparable<Pipe> {
     static int substringLength;
     int startIndex;
     int endIndex;
@@ -28,8 +29,8 @@ class Pipe implements Comparator<Pipe> {
     }
 
     @Override
-    public int compare(Pipe one, Pipe other) {
-        return one.startIndex - other.startIndex;
+    public int compareTo(Pipe other) {
+        return this.startIndex - other.startIndex;
     }
 
     @Override
@@ -50,25 +51,81 @@ class Pipe implements Comparator<Pipe> {
 
     @Override
     public String toString() {
-        return "StrtIndex : " + startIndex + " level : " + level;
+        return "StrtIndex : " + startIndex + " level : " + level + "\n";
     }
 }
 
 class GiftAndChefSolver {
-    public void solve(String string, String substring) {
-        Set<Pipe> occurences = new TreeSet<>();
-        boolean isDepthZero = false;
+    private int substringLength = -1;
+    private List<Pipe> occurences;
+    private List<Integer> levelOnePipes;
+    private Map<Integer, Integer> index;
+
+    private void generatePipes(String string, String substring) {
+        occurences = new ArrayList<>();
+        levelOnePipes = new ArrayList<>();
         int zeroDepthIndex = -1;
-        for (int i = 0, currentDepth = -1; i < string.length() - substring.length(); i++) {
+        for (int i = 0, currentDepth = -1; i < string.length(); i++) {
             int currentStartIndex = string.indexOf(substring, i);
-            if (currentStartIndex < zeroDepthIndex + substring.length()) {
-                currentDepth++;
-            }
-            if (currentDepth == 0) {
+            if (currentStartIndex == -1) break;
+            int depth = getDepth(zeroDepthIndex, currentStartIndex, currentDepth);
+            currentDepth = depth;
+            if (depth == 1) {
                 zeroDepthIndex = currentStartIndex;
+                levelOnePipes.add(currentStartIndex);
+                currentDepth = 1;
             }
-            occurences.add(new Pipe(currentStartIndex, currentDepth));
+            occurences.add(new Pipe(currentStartIndex, depth));
+            i = currentStartIndex;
         }
+    }
+
+    public void solve(String string, String substring) {
+        substringLength = substring.length();
+        generatePipes(string, substring);
+        if (occurences.size() == 0) {
+            System.out.println(0);
+            return;
+        }
+
         System.out.println(occurences);
+        System.out.println(levelOnePipes);
+        long[][] dp = new long[levelOnePipes.size()][occurences.size() + 1];
+        fillIndicesInMap(occurences);
+        for (int i = 1; i <= levelOnePipes.size(); i++) {
+            // 1 = 2
+            // 2 = 3 etc..
+            dp[index.get(levelOnePipes.get(i))][i - 1] = 1;
+            for (int steps = 0; steps < occurences.size() - i; steps++) {
+
+            }
+        }
+        System.out.println(index);
+    }
+
+    private void fillIndicesInMap(List<Pipe> occurences) {
+        index = new HashMap<>();
+        int i = 0;
+        for (Pipe p : occurences) {
+            index.put(p.startIndex, i);
+            i++;
+        }
+    }
+
+    private int getDepth(int zeroDepthIndex, int currentStartIndex, int currentDepth) {
+        if (currentDepth == -1) {
+            // First Time
+            return 1;
+        } else {
+            if (inRange(zeroDepthIndex, currentStartIndex)) {
+                return currentDepth + 1;
+            } else {
+                return 1;
+            }
+        }
+    }
+
+    private boolean inRange(int zeroDepthIndex, int currentStartIndex) {
+        return currentStartIndex <= zeroDepthIndex + substringLength - 1;
     }
 }

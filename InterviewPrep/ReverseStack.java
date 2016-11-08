@@ -6,14 +6,14 @@ package InterviewPrep;
 
 public class ReverseStack {
     public static void main(String[] a) {
-        MyStack myStack = new MyStack(10);
+        InterviewPrep.MyStack myStack = new InterviewPrep.MyStack(10);
         myStack.push(10);
         myStack.push(12);
         myStack.push(15);
         myStack.push(17);
         myStack.push(18);
         myStack.push(19);
-        new SortStackSolver().reverseStack(myStack);
+        new InterviewPrep.SortStackSolver().reverseStack(myStack);
         for (; !myStack.isEmpty(); ) {
             System.out.println(myStack.pop());
         }

@@ -12,7 +12,7 @@ public class LongestIncreasingSubsequenceNLogN {
         int[] arr = new int[len];
         for (int i = 0; i < len; i++) arr[i] = in.nextInt();
         new LongestIncreasingSubsequenceNLogNSolver().solve(arr);
-//        new LongestIncreasingSubsequenceNLogNSolver().solve(new int[] {-2, -7, -4, -3, -8});
+//        new LongestIncreasingSubsequenceNLogNSolver().prepareListMap(new int[] {-2, -7, -4, -3, -8});
     }
 }
 

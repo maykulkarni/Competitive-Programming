@@ -14,7 +14,7 @@ public class SquareSubsequence {
 //        int casea = in.nextInt();
 //        for (int i = 0; i < casea; i++) {
 //            String ip = in.next();
-//            System.out.println(new SquareSubsequenceSolver().solve(ip));
+//            System.out.println(new SquareSubsequenceSolver().prepareListMap(ip));
 //        }
         System.out.println(new SquareSubsequenceSolver().solve("abab"));
     }

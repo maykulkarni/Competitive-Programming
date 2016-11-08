@@ -72,7 +72,7 @@
 //        for (int i = 0; i < bikes; i++)
 //            bikePoints[i] = new CirclePoint(in.nextInt(), in.nextInt());
 //
-//        new CoinChangingSolver().solve(bikerPoints, bikePoints, k);
+//        new CoinChangingSolver().prepareListMap(bikerPoints, bikePoints, k);
 //
 //    }
 //}
@@ -83,7 +83,7 @@
 //    CirclePoint[] bikerPoints;
 //    int k;
 //
-//    public void solve(CirclePoint[] bikerPoints, CirclePoint[] bikePoints, int k) {
+//    public void prepareListMap(CirclePoint[] bikerPoints, CirclePoint[] bikePoints, int k) {
 ////        int low = 0;
 ////        int high =
 ////        int[][] capacity = getCapcityMatrix(currDistance, bikePoints, bikerPoints);

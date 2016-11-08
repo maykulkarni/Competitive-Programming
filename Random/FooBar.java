@@ -1,3 +1,5 @@
+package Random;
+
 public class FooBar {
     public static void main(String[] args) {
         System.out.println(Answer.answer(new int[][]{{1, 0}, {1, 1}}));
@@ -77,7 +79,7 @@ case 5 : -1
 *************************
 package com.google.challenges;
 
-public class Answer {
+public class Random.Answer {
     private static int ctr = 0;
     public static int answer(int[][] matrix) {
         // ctr++;

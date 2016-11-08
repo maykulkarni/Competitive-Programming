@@ -1,4 +1,4 @@
-package MyImplementations;
+package Utils;
 
 import java.math.BigInteger;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by mayur on 3/9/16.
  */
-public class Utils {
+public class Choose {
     Map<Integer, BigInteger> chooseCache = new HashMap<>();
 
     private static int hash(int n, int r) {

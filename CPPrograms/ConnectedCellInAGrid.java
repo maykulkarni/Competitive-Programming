@@ -34,9 +34,7 @@ class Point {
     }
 
     public boolean isInvalid() {
-        if (this.x == -1 && this.y == -1)
-            return true;
-        return false;
+        return this.x == -1 && this.y == -1;
     }
 
     public String toString() {
@@ -44,9 +42,7 @@ class Point {
     }
 
     public boolean equals(Point other) {
-        if (this.x == other.x && this.y == other.y)
-            return true;
-        return false;
+        return this.x == other.x && this.y == other.y;
     }
 }
 

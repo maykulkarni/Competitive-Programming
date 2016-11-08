@@ -5,11 +5,11 @@
 //import java.util.*;
 //
 //
-//class Point {
+//class CirclePoint {
 //    int x;
 //    int y;
 //
-//    Point(int x, int y) {
+//    CirclePoint(int x, int y) {
 //        this.x = x;
 //        this.y = y;
 //
@@ -63,14 +63,14 @@
 //        int bikers = in.nextInt();
 //        int bikes = in.nextInt();
 //        int k = in.nextInt();
-//        Point[] bikerPoints = new Point[bikers];
-//        Point[] bikePoints = new Point[bikes];
+//        CirclePoint[] bikerPoints = new CirclePoint[bikers];
+//        CirclePoint[] bikePoints = new CirclePoint[bikes];
 //        for (int i = 0; i < bikers; i++)
-//            bikerPoints[i] = new Point(in.nextInt(), in.nextInt());
+//            bikerPoints[i] = new CirclePoint(in.nextInt(), in.nextInt());
 //
 //
 //        for (int i = 0; i < bikes; i++)
-//            bikePoints[i] = new Point(in.nextInt(), in.nextInt());
+//            bikePoints[i] = new CirclePoint(in.nextInt(), in.nextInt());
 //
 //        new CoinChangingSolver().solve(bikerPoints, bikePoints, k);
 //
@@ -79,11 +79,11 @@
 //
 //class CoinChangingSolver {
 //    int currindex = -1;
-//    Point[] bikePoints;
-//    Point[] bikerPoints;
+//    CirclePoint[] bikePoints;
+//    CirclePoint[] bikerPoints;
 //    int k;
 //
-//    public void solve(Point[] bikerPoints, Point[] bikePoints, int k) {
+//    public void solve(CirclePoint[] bikerPoints, CirclePoint[] bikePoints, int k) {
 ////        int low = 0;
 ////        int high =
 ////        int[][] capacity = getCapcityMatrix(currDistance, bikePoints, bikerPoints);
@@ -130,7 +130,7 @@
 //        return capacity;
 //    }
 //
-//    private int getEuclideanDistance(Point bikePoint, Point bikerPoint) {
+//    private int getEuclideanDistance(CirclePoint bikePoint, CirclePoint bikerPoint) {
 //        return (int) Math.sqrt(Math.pow(bikerPoint.x - bikePoint.x, 2) + Math.pow(bikerPoint.y - bikePoint.y, 2));
 //    }
 //

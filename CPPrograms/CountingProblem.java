@@ -1,4 +1,4 @@
-package aCurrent;
+package CPPrograms;
 
 import java.util.Arrays;
 
@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Created by mayur on 7/11/16.
  */
 
-public class Main {
+public class CountingProblem {
     public static long[] arr;
     public static StringBuilder sb = new StringBuilder();
 

@@ -1,68 +1,21 @@
-package aCurrent;
+package CPPrograms;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import Utils.BladeReader;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * Created by mayur on 7/11/16.
  */
-class BladeReader {
-    public BufferedReader reader;
-    public StringTokenizer tokenizer;
 
-    public BladeReader(InputStream stream) {
-        reader = new BufferedReader(new InputStreamReader(stream), 32768);
-        tokenizer = null;
-    }
-
-    public String next() {
-        while (tokenizer == null || !tokenizer.hasMoreTokens()) {
-            try {
-                tokenizer = new StringTokenizer(reader.readLine());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return tokenizer.nextToken();
-    }
-
-    public int nextInt() {
-        return Integer.parseInt(next());
-    }
-
-    public int[] readIntArray(int size) {
-        int[] array = new int[size];
-        for (int i = 0; i < size; i++) {
-            array[i] = nextInt();
-        }
-        return array;
-    }
-
-    public long[] readLongArray(int size) {
-        long[] array = new long[size];
-        for (int i = 0; i < size; i++) {
-            array[i] = nextLong();
-        }
-        return array;
-    }
-
-    public long nextLong() {
-        return Long.parseLong(next());
-    }
-}
-
-class Point {
+class CirclePoint {
     long x;
     long y;
 
-    Point(long x, long y) {
+    CirclePoint(long x, long y) {
         this.x = x;
         this.y = y;
     }
@@ -94,12 +47,12 @@ public class CircleRadius {
     public static void main(String[] args) {
         BladeReader in = new BladeReader(System.in);
         int nPoints = in.nextInt();
-        Point[] points = new Point[nPoints];
+        CirclePoint[] circlePoints = new CirclePoint[nPoints];
         for (int i = 0; i < nPoints; i++) {
-            points[i] = new Point(in.nextLong(), in.nextLong());
+            circlePoints[i] = new CirclePoint(in.nextLong(), in.nextLong());
         }
         List<Long> distances = new ArrayList<>();
-        for (Point p : points) {
+        for (CirclePoint p : circlePoints) {
             distances.add(p.distanceFromMid());
         }
         Collections.sort(distances);

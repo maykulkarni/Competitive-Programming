@@ -1,4 +1,4 @@
-package aCurrent;
+package CPPrograms;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -96,7 +96,7 @@ class MainSolver {
                             minOneNumber.y = j;
                         }
                     }
-                    continue;
+                    //continue;
                 }
             }
         }
@@ -138,8 +138,8 @@ class MainSolver {
         for (int i = 0; i < len; i++) {
             grid.add(tmp);
             LinkedList tmpx = new LinkedList(tmp);
-            int last = (int) ((LinkedList) tmpx).removeLast();
-            ((LinkedList) tmpx).addFirst(last);
+            int last = (int) tmpx.removeLast();
+            tmpx.addFirst(last);
             tmp = tmpx;
         }
         List<List<Integer>> currentGrid = grid;

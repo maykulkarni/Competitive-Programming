@@ -60,19 +60,30 @@ public class SuffixArray {
         return LCPArray;
     }
 
+    // Creates LCP Array in O(N) time
     private int[] lcpArray(int[] sa, CharSequence s) {
         int n = sa.length;
         int[] rank = new int[n];
         for (int i = 0; i < n; i++)
             rank[sa[i]] = i;
         int[] lcp = new int[n - 1];
-        for (int i = 0, h = 0; i < n; i++) {
+        for (int i = 0, lcpCounter = 0; i < n; i++) {
             if (rank[i] < n - 1) {
-                for (int j = sa[rank[i] + 1]; Math.max(i, j) + h < s.length() && s.charAt(i + h) == s.charAt(j + h); ++h)
+                // Compare two strings according to their order in the suffix array, since they are in
+                // lexicographically sorted order we only need to compare the ith and i+1 th string
+                // the for loop below just uses a counter and increments it if two characters are same
+                // the longest common prefix will have the highest count of lcpCounter
+                // It calculates the lcpCounter in such a way that the runtime is O(N)
+                // Let lcp of suffix beginning at txt[i] be k. If k is greater than 0, then lcp for
+                // suffix beginning at txt[i+1] will be at-least k-1. The reason is, relative order of
+                // characters remain same. If we delete the first character from both suffixes, we know that
+                // at least k characters will match. For example for substring “ana”, lcp is 3, so for string
+                // “na” lcp will be at-least 2.
+                for (int j = sa[rank[i] + 1]; Math.max(i, j) + lcpCounter < s.length() && s.charAt(i + lcpCounter) == s.charAt(j + lcpCounter); ++lcpCounter)
                     ;
-                lcp[rank[i]] = h;
-                if (h > 0)
-                    --h;
+                lcp[rank[i]] = lcpCounter;
+                if (lcpCounter > 0)
+                    --lcpCounter;
             }
         }
         return lcp;
@@ -83,12 +94,12 @@ public class SuffixArray {
         if (LCPArray == null)
             getLCPArray();
         int maxLCPLength = -1;
-        for (int i = 0; i < s.length() - 1; i++) {
+        for (int i = 0; i < LCPArray.length; i++) {
             if (LCPArray[i] > maxLCPLength) {
                 maxLCPLength = LCPArray[i];
                 maxLCPIndex = i;
             }
         }
-        return s.subSequence(maxLCPIndex, maxLCPLength).toString();
+        return s.toString().substring(suffixArray[maxLCPIndex], suffixArray[maxLCPIndex] + maxLCPLength);
     }
 }

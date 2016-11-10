@@ -18,6 +18,6 @@ class SuffixArrayTestSolver {
         int[] suffixArray = sa.getSuffixArray();
         System.out.println(Arrays.toString(suffixArray));
         System.out.println(Arrays.toString(sa.getLCPArray()));
-        System.out.println(sa.getLCP());
+        System.out.println("LCP : " + sa.getLCP());
     }
 }

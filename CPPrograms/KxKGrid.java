@@ -1,61 +1,15 @@
 package CPPrograms;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import Utils.BladeReader;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * Created by mayur on 4/11/16.
  */
-class BladeReader {
-    public BufferedReader reader;
-    public StringTokenizer tokenizer;
 
-    public BladeReader(InputStream stream) {
-        reader = new BufferedReader(new InputStreamReader(stream), 32768);
-        tokenizer = null;
-    }
-
-    public String next() {
-        while (tokenizer == null || !tokenizer.hasMoreTokens()) {
-            try {
-                tokenizer = new StringTokenizer(reader.readLine());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return tokenizer.nextToken();
-    }
-
-    public int nextInt() {
-        return Integer.parseInt(next());
-    }
-
-    public int[] readIntArray(int size) {
-        int[] array = new int[size];
-        for (int i = 0; i < size; i++) {
-            array[i] = nextInt();
-        }
-        return array;
-    }
-
-    public long[] readLongArray(int size) {
-        long[] array = new long[size];
-        for (int i = 0; i < size; i++) {
-            array[i] = nextLong();
-        }
-        return array;
-    }
-
-    public long nextLong() {
-        return Long.parseLong(next());
-    }
-}
 
 public class KxKGrid {
     public static void main(String[] args) {

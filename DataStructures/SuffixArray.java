@@ -15,6 +15,12 @@ public class SuffixArray {
         this.s = input;
     }
 
+    public static void main(String[] args) {
+        SuffixArray sa = new SuffixArray("aaaaa");
+        System.out.println(Arrays.toString(sa.getSuffixArray()));
+        System.out.println(Arrays.toString(sa.getLCPArray()));
+    }
+
     // Creates Suffix array in O(N*(LogN)^2)
     public int[] getSuffixArray() {
         if (suffixArray != null) {
@@ -67,6 +73,7 @@ public class SuffixArray {
         for (int i = 0; i < n; i++)
             rank[sa[i]] = i;
         int[] lcp = new int[n - 1];
+
         for (int i = 0, lcpCounter = 0; i < n; i++) {
             if (rank[i] < n - 1) {
                 // Compare two strings according to their order in the suffix array, since they are in

@@ -53,6 +53,10 @@ public class BladeReader {
         return array;
     }
 
+    public double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
     public long nextLong() {
         return Long.parseLong(next());
     }

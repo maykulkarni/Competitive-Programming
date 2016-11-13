@@ -8,30 +8,22 @@ import java.util.Scanner;
 public class CircumferenceOfCircle {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        new CircumferenceSolver().solve(in.nextDouble(), in.nextDouble(), in.nextDouble(), in.nextDouble(), in.nextDouble(), in.nextDouble());
-    }
-}
-
-class Point {
-    double x;
-    double y;
-
-    Point(double x, double y) {
-        this.x = x;
-        this.y = y;
+        while (in.hasNext())
+            new CircumferenceSolver().solve(in.nextDouble(), in.nextDouble(), in.nextDouble(), in.nextDouble(), in.nextDouble(), in.nextDouble());
     }
 }
 
 class CircumferenceSolver {
+    private static final double EPSILON = 0.00001;
+
+    private double dist(double x1, double y1, double x2, double y2) {
+        return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+    }
     public void solve(double x1, double y1, double x2, double y2, double x3, double y3) {
-        Point midPoint1 = new Point((x1 + x2) / 2, (y1 + y2) / 2);
-        Point midPoint2 = new Point((x2 + x3) / 2, (y2 + y3) / 2);
-        double slope1 = (y2 - y1) / (x2 - x1);
-        double c1 = (-slope1 * midPoint1.x) + midPoint1.y;
-        double slope2 = (y3 - y2) / (x3 - x2);
-        double c2 = (-slope2 * midPoint2.x) + midPoint2.y;
-        Point pointOfContact = new Point((c2 - c1) / (slope1 - slope2), (slope1 * c2 - slope2 * c1) / (slope1 - slope2));
-        double radius = Math.sqrt(Math.abs(pointOfContact.x - x1) + Math.abs(pointOfContact.y - y1));
-        System.out.println(2 * Math.PI * radius);
+        double a = dist(x1, y1, x2, y2);
+        double b = dist(x2, y2, x3, y3);
+        double c = dist(x3, y3, x1, y1);
+        double radius = a * b * c / (Math.sqrt((a + b + c) * (b + c - a) * (c + a - b) * (a + b - c)));
+        System.out.printf("%.2f\n", 2 * Math.PI * radius);
     }
 }

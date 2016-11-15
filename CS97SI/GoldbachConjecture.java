@@ -1,7 +1,7 @@
 package CS97SI;
 
 import Utils.BladeReader;
-import Utils.PrimesAndDivisors;
+import Utils.NumberUtils;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -13,7 +13,7 @@ import java.util.TreeSet;
 public class GoldbachConjecture {
     public static void main(String[] args) {
         BladeReader in = new BladeReader(System.in);
-        int[] primes = PrimesAndDivisors.getPrimesUsingSeive(1000000);
+        int[] primes = NumberUtils.getPrimesUsingSeive(1000000);
         Set<Integer> set = new TreeSet<>();
         Arrays.stream(primes).forEach(set::add);
         int inp;

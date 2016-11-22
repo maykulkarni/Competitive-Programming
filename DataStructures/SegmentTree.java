@@ -1,7 +1,5 @@
 package DataStructures;
 
-import java.util.Arrays;
-
 /**
  * Created by Mayur Kulkarni on 22/11/16.
  * E-mail : mayurkulkarni012@gmail.com
@@ -13,42 +11,64 @@ public class SegmentTree {
     private int[] t;
     private int n;
 
-    SegmentTree(int[] inp, int k) {
+    public SegmentTree(int[] inp, int k) {
         this.n = inp.length;
         tree = new long[inp.length + inp.length];
         this.k = k;
         t = new int[inp.length + inp.length];
-        //Arrays.fill(tree, -1);
         for (int i = inp.length, j = 0; j < inp.length; i++, j++) {
-            tree[i] = inp[j];
+            tree[i] = inp[j] % k;
+            // tree[i] = inp[j];
         }
         build(inp.length);
-        System.out.println(Arrays.toString(tree));
+        //System.out.println(Arrays.toString(tree));
     }
 
     public static void main(String[] args) {
-        SegmentTree st = new SegmentTree(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}, 7);
+        SegmentTree st = new SegmentTree(new int[]{1, 2, 3}, 2);
+        //System.out.println(st.query(0, 1));
     }
 
-    public static void add(int[] t, int i, int value) {
-        i += t.length / 2;
-        t[i] += value;
-        for (; i > 1; i >>= 1)
-            t[i >> 1] = Math.max(t[i], t[i ^ 1]);
-    }
 
     private void build(int inpLen) {
-        for (int i = inpLen - 1; i >= 0; i--) {
-            tree[i] = (tree[i << 1] + tree[i << 1 | 1]);
+        for (int i = inpLen - 1; i > 0; i--) {
+            tree[i] = (tree[i << 1] * tree[(i << 1) | 1]) % k;
+            //tree[i] = tree[i << 1] + tree[(i << 1) | 1];
         }
     }
 
-    private long query(int l, int r) {
-        long res = 0;
+    public long query(int l, int r) {
+
+        long resL = 1;//Long.MIN_VALUE;
+        long resR = 1;//Long.MIN_VALUE;
+        boolean firstL = true;
+        boolean firstR = true;
         for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
-            if ((l & 1) != 0) res += tree[l++];
-            if ((r & 1) != 0) res += tree[--r];
+            if ((l & 1) != 0) {
+                if (firstL) {
+                    resL = tree[l++];
+                    firstL = false;
+                } else {
+                    resL = (resL * tree[l++]) % k;
+                }
+            }
+            if ((r & 1) != 0) {
+                if (firstR) {
+                    resR = tree[--r];
+                    firstR = false;
+                } else {
+                    resR = (resR * tree[--r]) % k;
+                }
+            }
         }
-        return 1L;
+
+        if (!firstL && !firstR)
+            return (resL * resR) % k;
+        if (!firstL)
+            return resL % k;
+        if (!firstR)
+            return resR % k;
+
+        throw new RuntimeException();
     }
 }

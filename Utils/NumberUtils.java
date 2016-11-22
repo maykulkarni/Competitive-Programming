@@ -13,6 +13,40 @@ public class NumberUtils {
         return 187 * n + 97 * r;
     }
 
+    public static int maxInArray(int[] arr) {
+        int maxIndex = 0;
+        int maxVal = Integer.MIN_VALUE;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > maxVal) {
+                maxVal = arr[i];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
+    public static long sumLong(int[] arr) {
+        long ans = 0;
+        for (int i = 0; i < arr.length; i++) {
+            ans += arr[i];
+        }
+        return ans;
+    }
+
+    public static int maxInArray(int[] arr, int endIndex) {
+        int maxIndex = 0;
+        int maxVal = Integer.MIN_VALUE;
+
+        for (int i = 0; i < endIndex; i++) {
+            if (arr[i] > maxVal) {
+                maxVal = arr[i];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
     public static BigInteger nChooseR(int n, int r) {
         if (r > n) {
             return BigInteger.valueOf(0);

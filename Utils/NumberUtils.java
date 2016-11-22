@@ -1,9 +1,7 @@
 package Utils;
 
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by mayur on 11/11/16.
@@ -32,6 +30,80 @@ public class NumberUtils {
         BigInteger ans = (N.multiply(nChooseR(n - 1, r - 1))).divide(R);
         chooseCache.put(hash, ans);
         return ans;
+    }
+
+    public static int getMinIntIndex(Integer[] arr) {
+        int min = Integer.MAX_VALUE;
+        int minIndx = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] < min) {
+                min = arr[i];
+                minIndx = i;
+            }
+        }
+        return minIndx;
+    }
+
+    public static int getMaxIntIndex(int[] arr) {
+        int maxIndex = -1;
+        int maxVal = Integer.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > maxVal) {
+                maxVal = arr[i];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
+    public static Map<Long, Integer> factorize(long n) {
+        Map<Long, Integer> factors = new LinkedHashMap<>();
+        if (n == 1) {
+            factors.put(1L, 1);
+            return factors;
+        }
+        for (long d = 2; n > 1; ) {
+            int power = 0;
+            while (n % d == 0) {
+                ++power;
+                n /= d;
+            }
+            if (power > 0) {
+                factors.put(d, power);
+            }
+            ++d;
+            if (d * d > n) {
+                d = n;
+            }
+        }
+        return factors;
+    }
+
+    public static int getMaxLongIndex(long[] arr) {
+        int maxIndex = -1;
+        long maxVal = Long.MIN_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > maxVal) {
+                maxVal = arr[i];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
+    public static int[] getAllDivisors(int n) {
+        List<Integer> divisors = new ArrayList<>();
+        for (int d = 1; d * d <= n; d++)
+            if (n % d == 0) {
+                divisors.add(d);
+                if (d * d != n)
+                    divisors.add(n / d);
+            }
+        int[] res = new int[divisors.size()];
+        for (int i = 0; i < res.length; i++)
+            res[i] = divisors.get(i);
+        //Arrays.sort(res);
+        return res;
     }
 
     public static BigInteger catalan(int n) {

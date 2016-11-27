@@ -18,6 +18,15 @@ public class BladeReader {
         tokenizer = null;
     }
 
+    public int[][] readIntMatrix(int row, int col) {
+        int[][] mat = new int[row][col];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                mat[i][j] = nextInt();
+            }
+        }
+        return mat;
+    }
     public String next() {
         while (tokenizer == null || !tokenizer.hasMoreTokens()) {
             try {

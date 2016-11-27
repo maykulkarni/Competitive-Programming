@@ -3,17 +3,14 @@ package Utils;
 import java.math.BigInteger;
 import java.util.*;
 
-/**
- * Created by mayur on 11/11/16.
- */
 public class NumberUtils {
-    static Map<Integer, BigInteger> chooseCache = new HashMap<>();
+    private static Map<Integer, BigInteger> chooseCache = new HashMap<>();
 
     private static int hash(int n, int r) {
         return 187 * n + 97 * r;
     }
 
-    public static BigInteger nChooseR(int n, int r) {
+    private static BigInteger nChooseR(int n, int r) {
         if (r > n) {
             return BigInteger.valueOf(0);
         }
@@ -31,6 +28,78 @@ public class NumberUtils {
         chooseCache.put(hash, ans);
         return ans;
     }
+
+    public static int binSearchFirstOccurence(int[] a, int key) {
+        int low = 0;
+        int high = a.length - 1;
+        int ans = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (a[mid] == key) {
+                ans = mid;
+            }
+            if (a[mid] < key) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return ans == -1 ? low - 1 : ans;
+    }
+
+    public static int binSearchNumberOfItemsLessThan(int[] a, int key) {
+        int low = 0;
+        int high = a.length - 1;
+        int ans = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (a[mid] == key) {
+                ans = mid;
+            }
+            if (a[mid] <= key) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return ans == -1 ? low : ans;
+    }
+
+    public static int binSearchLastOccurence(int[] a, int key) {
+        int low = 0;
+        int high = a.length - 1;
+        int ans = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (a[mid] == key) {
+                ans = mid;
+            }
+            if (a[mid] <= key) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return ans == -1 ? low - 1 : ans;
+    }
+
+    private static int binSearch(int[] a, int key) {
+        int low = 0;
+        int high = a.length - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (a[mid] == key) {
+                return mid;
+            }
+            if (a[mid] < key) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return low - 1;
+    }
+
 
     public static int getMinIntIndex(Integer[] arr) {
         int min = Integer.MAX_VALUE;
@@ -91,18 +160,17 @@ public class NumberUtils {
         return maxIndex;
     }
 
-    public static int[] getAllDivisors(int n) {
-        List<Integer> divisors = new ArrayList<>();
+    public static long[] getAllDivisors(long n) {
+        List<Long> divisors = new ArrayList<>();
         for (int d = 1; d * d <= n; d++)
             if (n % d == 0) {
-                divisors.add(d);
+                divisors.add((long) d);
                 if (d * d != n)
                     divisors.add(n / d);
             }
-        int[] res = new int[divisors.size()];
+        long[] res = new long[divisors.size()];
         for (int i = 0; i < res.length; i++)
             res[i] = divisors.get(i);
-        //Arrays.sort(res);
         return res;
     }
 

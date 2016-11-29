@@ -30,7 +30,7 @@ public class NumberUtils {
         return ans;
     }
 
-    public static int maxInArray(int[] arr, int endIndex) {
+    public static int getMinIntIndex(int[] arr, int endIndex) {
         int maxIndex = 0;
         int maxVal = Integer.MIN_VALUE;
         for (int i = 0; i < endIndex; i++) {
@@ -157,6 +157,16 @@ public class NumberUtils {
         return maxIndex;
     }
 
+
+    public static boolean isPrime(long n) {
+        if (n <= 1)
+            return false;
+        for (long i = 2; i * i <= n; i++)
+            if (n % i == 0)
+                return false;
+        return true;
+    }
+
     public static Map<Long, Integer> factorize(long n) {
         Map<Long, Integer> factors = new LinkedHashMap<>();
         if (n == 1) {
@@ -190,6 +200,18 @@ public class NumberUtils {
             }
         }
         return maxIndex;
+    }
+
+    public static int getMinLongIndex(long[] arr) {
+        int minIndex = -1;
+        long minVal = Long.MAX_VALUE;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] < minVal) {
+                minVal = arr[i];
+                minIndex = i;
+            }
+        }
+        return minIndex;
     }
 
     public static long[] getAllDivisors(long n) {

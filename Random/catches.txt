@@ -11,3 +11,10 @@ is < 2
 Arrays.sort on primitives uses quicksort which has a worst case of O(n^2) This
 happens if you build the array in a certain manner otherwise quicksort on
 average is also O(n*log(n)).
+4. Major errors happen when you copy paste! Either don't copy paste, or look at the code
+carefully!
+5. When you're checking for specific condition in the start of loop, and then altering the same
+thing in consequent lines, then the condition which you checked in the start might not hold. So always
+check the initial condition in the beginning and then put the required condition in the end of the loop.
+6. Maintain partial sum for range queries. for range i, k (inclusive) ans = sum[k] - sum[i - 1]. Remember to add
+mod and then mod, because sum[k] - sum[i - 1] can be negative

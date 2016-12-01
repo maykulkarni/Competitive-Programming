@@ -4,6 +4,7 @@ Graphs :
 
 
 Misc :
+0. Read problem again before submitting
 1. Many a time Greedy algorithm works so don't try to always use DP.
 2. If main loop is running from 2 -> n then don't forget to take care of cases where input
 is < 2

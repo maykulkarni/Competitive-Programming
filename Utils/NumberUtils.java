@@ -151,6 +151,22 @@ public class NumberUtils {
         return low - 1;
     }
 
+    // a^b
+    public static BigInteger pow(int a, int b) {
+        if (b == 0) return BigInteger.ONE;
+        if (b == 1) return BigInteger.valueOf(a);
+        BigInteger ans = BigInteger.ONE;
+        BigInteger a_ = BigInteger.valueOf(a);
+        BigInteger b_ = BigInteger.valueOf(b);
+        BigInteger two = BigInteger.valueOf(2);
+        while (b_.compareTo(BigInteger.ONE) >= 0) {
+            if (((b_.and(BigInteger.ONE)).compareTo(BigInteger.ZERO)) != 0)
+                ans = ans.multiply(a_);
+            a_ = a_.multiply(a_);
+            b_ = b_.divide(two);
+        }
+        return ans;
+    }
 
     public static int getMinIntIndex(Integer[] arr) {
         int min = Integer.MAX_VALUE;

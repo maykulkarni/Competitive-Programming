@@ -45,6 +45,14 @@ public class BladeReader {
         return array;
     }
 
+    public Integer[] readIntegerArray(int size) {
+        Integer[] array = new Integer[size];
+        for (int i = 0; i < size; i++) {
+            array[i] = nextInt();
+        }
+        return array;
+    }
+
     public int[][] readIntMatrix(int row, int col) {
         int[][] mat = new int[row][col];
         for (int i = 0; i < row; i++) {

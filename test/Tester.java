@@ -12,7 +12,7 @@ import java.util.Random;
 public class Tester {
     public static long solve(int[] a, int size, int k) {
         long ans = 0;
-        SegmentTree st = new SegmentTree(a, k);
+        SegmentTree st = new SegmentTree(a);
 //        int p = -1;
 //        int q;
 //        while (p < a.length) {
@@ -40,7 +40,6 @@ public class Tester {
 
     public static long bruteForce(int[] a, int size, int k) {
         long ans = 0;
-
         for (int i = 1; i <= size; i++) {
             for (int j = 0; j <= size - i; j++) {
                 int tempj = j;
@@ -52,7 +51,6 @@ public class Tester {
                     ans++;
                 }
             }
-
         }
         return ans;
     }

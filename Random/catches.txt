@@ -2,6 +2,9 @@ Graphs :
 1. Keep an eye for directed/non-directed graphs.
 2. Don't take for granted the edge direction, not necessary if 1 -> 2 , 2 is root.
 
+Sorting :
+1. Java uses Double Pivoted Quick sort which is O(N**2) in worst case, so randomly shuffle the
+array to avoid timeouts.
 
 Misc :
 0. Read problem again before submitting

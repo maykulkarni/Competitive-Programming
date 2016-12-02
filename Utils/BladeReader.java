@@ -29,6 +29,9 @@ public class BladeReader {
         return tokenizer.nextToken();
     }
 
+    public char nextChar() {
+        return next().charAt(0);
+    }
     public String nextString() {
         return next();
     }

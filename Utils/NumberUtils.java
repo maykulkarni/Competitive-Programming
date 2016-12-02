@@ -11,15 +11,13 @@ public class NumberUtils {
     }
 
     public static int maxInArray(int[] arr) {
-        int maxIndex = 0;
         int maxVal = Integer.MIN_VALUE;
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] > maxVal) {
                 maxVal = arr[i];
-                maxIndex = i;
             }
         }
-        return maxIndex;
+        return maxVal;
     }
 
     public static long sumLong(int[] arr) {
@@ -184,7 +182,7 @@ public class NumberUtils {
         int maxIndex = -1;
         int maxVal = Integer.MIN_VALUE;
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > maxVal) {
+            if (arr[i] >= maxVal) {
                 maxVal = arr[i];
                 maxIndex = i;
             }
@@ -285,5 +283,45 @@ public class NumberUtils {
             }
         }
         return Arrays.copyOf(primes, cnt);
+    }
+
+    public static int[][] matrixMult(int[][] a, int[][] b) {
+        if (a[0].length != b.length) {
+            System.out.println("Matrix cannot be multiplied");
+            throw new RuntimeException();
+        }
+        int[][] c = new int[a.length][b[0].length];
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < b[0].length; j++) {
+                int sum = 0;
+                for (int k = 0; k < a[0].length; k++) {
+                    sum += a[i][k] * b[k][j];
+                }
+                c[i][j] = sum;
+            }
+        }
+        return c;
+    }
+
+    public static int[][] matrixExp(int[][] a, int exp) {
+        if (exp == 1) {
+            return a;
+        }
+        int[][] tmp = identity(a.length, a[0].length);
+        while (exp > 0) {
+            if ((exp & 1) == 1)
+                tmp = NumberUtils.matrixMult(tmp, a);
+            a = NumberUtils.matrixMult(a, a);
+            exp >>= 1;
+        }
+        return tmp;
+    }
+
+    private static int[][] identity(int n, int m) {
+        int[][] tmp = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            tmp[i][i] = 1;
+        }
+        return tmp;
     }
 }

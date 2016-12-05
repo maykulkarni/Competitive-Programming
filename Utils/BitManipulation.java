@@ -41,7 +41,24 @@ public class BitManipulation {
     public static boolean isPowerOfTwo(int x) {
         return x != 0 && clearBit(x, getLowestSetBitIndex(x)) == 0;
     }
+
+    public static void iterateOverSubset() {
+        int maxmask = 1 << 5;
+        int N = 5;
+        String[] arr = {"1", "2", "3", "4", "5"};
+        int badmask = 0;
+        badmask |= 1 << 4;
+        badmask |= 1 << 3;
+        for (int i = (maxmask - 1) & ~badmask; i > 0; i = (i - 1) & ~badmask) {
+            for (int j = 0; j < 5; j++) {
+                if ((i & (1 << j)) > 0) System.out.print(arr[j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
 }
+
 
 class Test {
     public static void main(String[] args) {

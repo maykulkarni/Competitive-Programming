@@ -8,7 +8,7 @@ import java.util.*;
 
 class TrieNode {
     char c;
-    Map<Character, TrieNode> children = new HashMap<Character, TrieNode>();
+    Map<Character, TrieNode> children = new HashMap<>();
     boolean isLeaf;
 
     public TrieNode() {
@@ -65,10 +65,7 @@ public class Trie {
                 return false;
             }
         }
-        if (walk.isLeaf)
-            return true;
-        else
-            return false;
+        return walk.isLeaf;
     }
 
     public boolean isPrefix(String word) {

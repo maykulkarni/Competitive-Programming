@@ -261,6 +261,10 @@ public class NumberUtils {
         return res;
     }
 
+    public static long gcd(long i, long j) {
+        return (j == 0) ? i : gcd(j, i % j);
+    }
+
     public static BigInteger catalan(int n) {
         return nChooseR(2 * n, n).divide(BigInteger.valueOf(n + 1));
     }

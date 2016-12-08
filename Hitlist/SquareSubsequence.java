@@ -1,6 +1,6 @@
 package Hitlist;
 
-import MyImplementations.PrintMat;
+import Utils.PrintMat;
 
 import java.util.HashSet;
 import java.util.Set;

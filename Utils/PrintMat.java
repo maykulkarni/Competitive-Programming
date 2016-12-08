@@ -1,4 +1,4 @@
-package MyImplementations;
+package Utils;
 
 import java.math.BigInteger;
 
@@ -22,8 +22,8 @@ public class PrintMat {
             }
             System.out.println();
         }
+        line();
     }
-
     public PrintMat(boolean[][] mat) {
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[0].length; j++) {
@@ -49,5 +49,9 @@ public class PrintMat {
             }
             System.out.println();
         }
+    }
+
+    public void line() {
+        System.out.println("**********************");
     }
 }

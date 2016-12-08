@@ -1,4 +1,4 @@
-package MyImplementations;
+package DataStructures;
 
 import java.util.*;
 

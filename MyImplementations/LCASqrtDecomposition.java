@@ -9,16 +9,16 @@ import java.util.*;
  * Created by Mayur Kulkarni on 12/8/2016.
  * Email : mayurkulkarni012@gmail.com
  */
-public class LCA {
+public class LCASqrtDecomposition {
     static Map<Integer, List<Integer>> map;
     static int[] level;
     static int[] T;
     static int[] P;
     static int maxH;
     static int nr;
-    int[][] M;
+    static int N;
 
-    public LCA() {
+    public LCASqrtDecomposition() {
 
     }
 
@@ -30,6 +30,7 @@ public class LCA {
         level = new int[nodes + 1];
         P = new int[nodes + 1];
         T = new int[nodes + 1];
+        N = nodes + 1;
         for (int i = 0; i < nodes - 1; i++) {
             int a = in.nextInt();
             int b = in.nextInt();
@@ -62,8 +63,12 @@ public class LCA {
         System.out.println(Arrays.toString(T));
         System.out.println("P");
         System.out.println(Arrays.toString(P));
-        System.out.println("LCA for " + L + " " + " " + R + " is : " + lca(L, R));
+        System.out.println("LCASqrtDecomposition for " + L + " " + " " + R + " is : " + lca(L, R));
     }
+
+    /*
+        Square root decomposition
+     */
 
     public static int lca(int i, int j) {
         while (P[i] != P[j]) {
@@ -106,4 +111,30 @@ public class LCA {
             updateLevel(nodes, lev + 1);
         }
     }
+
+    /*
+        Square root decomposition end
+     */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

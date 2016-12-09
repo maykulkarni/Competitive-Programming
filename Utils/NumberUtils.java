@@ -149,6 +149,10 @@ public class NumberUtils {
         return low - 1;
     }
 
+    public static int log2(int i) {
+        return (int) (Math.log10(i) / Math.log10(2));
+    }
+
     // a^b
     public static BigInteger pow(int a, int b) {
         if (b == 0) return BigInteger.ONE;

@@ -324,6 +324,10 @@ public class NumberUtils {
         }
         return tmp;
     }
+//
+//    public static long gcd(long a, long b) {
+//        return b == 0 ? Math.abs(a) : gcd(b, a % b);
+//    }
 
     private static int[][] identity(int n, int m) {
         int[][] tmp = new int[n][m];

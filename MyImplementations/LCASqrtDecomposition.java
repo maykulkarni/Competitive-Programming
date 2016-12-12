@@ -1,7 +1,7 @@
 package MyImplementations;
 
 import Utils.BladeReader;
-import Utils.NumberUtils;
+import Utils.SearchUtils;
 
 import java.util.*;
 
@@ -54,7 +54,7 @@ public class LCASqrtDecomposition {
         int R = in.nextInt();
         // Warning: starting node is 1
         updateLevel(1, 0);
-        maxH = NumberUtils.maxInArray(level);
+        maxH = SearchUtils.maxInArray(level);
         nr = (int) Math.sqrt(maxH);
         dfs(1);
         System.out.println("level");

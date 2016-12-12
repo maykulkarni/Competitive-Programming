@@ -6,19 +6,18 @@ import java.util.*;
 public class NumberUtils {
     private static Map<Integer, BigInteger> chooseCache = new HashMap<>();
 
+    public static long naiveFactorial(int n) {
+        long ans = 1;
+        for (int i = 1; i <= n; i++) {
+            ans *= i;
+        }
+        return ans;
+    }
+
     private static int hash(int n, int r) {
         return 187 * n + 97 * r;
     }
 
-    public static int maxInArray(int[] arr) {
-        int maxVal = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > maxVal) {
-                maxVal = arr[i];
-            }
-        }
-        return maxVal;
-    }
 
     public static long sumLong(int[] arr) {
         long ans = 0;
@@ -47,17 +46,6 @@ public class NumberUtils {
 
     }
 
-    public static int getMinIntIndex(int[] arr, int endIndex) {
-        int maxIndex = 0;
-        int maxVal = Integer.MIN_VALUE;
-        for (int i = 0; i < endIndex; i++) {
-            if (arr[i] > maxVal) {
-                maxVal = arr[i];
-                maxIndex = i;
-            }
-        }
-        return maxIndex;
-    }
 
     public static BigInteger nChooseR(int n, int r) {
         if (r > n) {
@@ -76,77 +64,6 @@ public class NumberUtils {
         BigInteger ans = (N.multiply(nChooseR(n - 1, r - 1))).divide(R);
         chooseCache.put(hash, ans);
         return ans;
-    }
-
-    public static int binSearchFirstOccurence(int[] a, int key) {
-        int low = 0;
-        int high = a.length - 1;
-        int ans = -1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (a[mid] == key) {
-                ans = mid;
-            }
-            if (a[mid] < key) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-        return ans == -1 ? low - 1 : ans;
-    }
-
-    public static int binSearchNumberOfItemsLessThan(int[] a, int key) {
-        int low = 0;
-        int high = a.length - 1;
-        int ans = -1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (a[mid] == key) {
-                ans = mid;
-            }
-            if (a[mid] <= key) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-        return ans == -1 ? low : ans;
-    }
-
-    public static int binSearchLastOccurence(int[] a, int key) {
-        int low = 0;
-        int high = a.length - 1;
-        int ans = -1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (a[mid] == key) {
-                ans = mid;
-            }
-            if (a[mid] <= key) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-        return ans == -1 ? low - 1 : ans;
-    }
-
-    private static int binSearch(int[] a, int key) {
-        int low = 0;
-        int high = a.length - 1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (a[mid] == key) {
-                return mid;
-            }
-            if (a[mid] < key) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-        return low - 1;
     }
 
     public static int log2(int i) {
@@ -168,30 +85,6 @@ public class NumberUtils {
             b_ = b_.divide(two);
         }
         return ans;
-    }
-
-    public static int getMinIntIndex(Integer[] arr) {
-        int min = Integer.MAX_VALUE;
-        int minIndx = -1;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] < min) {
-                min = arr[i];
-                minIndx = i;
-            }
-        }
-        return minIndx;
-    }
-
-    public static int getMaxIntIndex(int[] arr) {
-        int maxIndex = -1;
-        int maxVal = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] >= maxVal) {
-                maxVal = arr[i];
-                maxIndex = i;
-            }
-        }
-        return maxIndex;
     }
 
 
@@ -225,30 +118,6 @@ public class NumberUtils {
             }
         }
         return factors;
-    }
-
-    public static int getMaxLongIndex(long[] arr) {
-        int maxIndex = -1;
-        long maxVal = Long.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] > maxVal) {
-                maxVal = arr[i];
-                maxIndex = i;
-            }
-        }
-        return maxIndex;
-    }
-
-    public static int getMinLongIndex(long[] arr) {
-        int minIndex = -1;
-        long minVal = Long.MAX_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] < minVal) {
-                minVal = arr[i];
-                minIndex = i;
-            }
-        }
-        return minIndex;
     }
 
     public static long[] getAllDivisors(long n) {

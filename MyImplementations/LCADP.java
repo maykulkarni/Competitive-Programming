@@ -3,6 +3,7 @@ package MyImplementations;
 import Utils.BladeReader;
 import Utils.NumberUtils;
 import Utils.PrintMat;
+import Utils.SearchUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,7 +74,7 @@ public class LCADP {
         int R = in.nextInt();
         // Warning: starting node is 1
         updateLevel(1, 0);
-        maxH = NumberUtils.maxInArray(level);
+        maxH = SearchUtils.maxInArray(level);
         process();
         new PrintMat(P);
     }

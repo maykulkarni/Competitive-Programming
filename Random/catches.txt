@@ -22,3 +22,4 @@ thing in consequent lines, then the condition which you checked in the start mig
 check the initial condition in the beginning and then put the required condition in the end of the loop.
 6. Maintain partial sum for range queries. for range i, k (inclusive) ans = sum[k] - sum[i - 1]. Remember to add
 mod and then mod, because sum[k] - sum[i - 1] can be negative
+7. Look for Presentation Errors, a.k.a. is newline in the end?

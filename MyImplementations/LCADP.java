@@ -5,7 +5,6 @@ import Utils.NumberUtils;
 import Utils.PrintMat;
 import Utils.SearchUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,15 +56,15 @@ public class LCADP {
                 b = temp;
             }
             T[b] = a;
-            if (map.containsKey(a)) {
-                List<Integer> temp = map.get(a);
-                temp.add(b);
-                map.put(a, temp);
-            } else {
-                List<Integer> temp = new ArrayList<>();
-                temp.add(b);
-                map.put(a, temp);
-            }
+//            if (map.containsKey(a)) {
+//                List<Integer> temp = map.get(a);
+//                temp.add(b);
+//                map.put(a, temp);
+//            } else {
+//                List<Integer> temp = new ArrayList<>();
+//                temp.add(b);
+//                map.put(a, temp);
+//            }
         }
         // ****************IMP**************************
         // Considering 1 is the root, this may change!!

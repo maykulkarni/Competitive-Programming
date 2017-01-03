@@ -3,7 +3,10 @@ package MyImplementations;
 import Utils.BladeReader;
 import Utils.SearchUtils;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Mayur Kulkarni on 12/8/2016.
@@ -31,25 +34,25 @@ public class LCASqrtDecomposition {
         P = new int[nodes + 1];
         T = new int[nodes + 1];
         N = nodes + 1;
-        for (int i = 0; i < nodes - 1; i++) {
-            int a = in.nextInt();
-            int b = in.nextInt();
-            if (b < a) {
-                int temp = a;
-                a = b;
-                b = temp;
-            }
-            T[b] = a;
-            if (map.containsKey(a)) {
-                List<Integer> temp = map.get(a);
-                temp.add(b);
-                map.put(a, temp);
-            } else {
-                List<Integer> temp = new ArrayList<>();
-                temp.add(b);
-                map.put(a, temp);
-            }
-        }
+//        for (int i = 0; i < nodes - 1; i++) {
+//            int a = in.nextInt();
+//            int b = in.nextInt();
+//            if (b < a) {
+//                int temp = a;
+//                a = b;
+//                b = temp;
+//            }
+//            T[b] = a;
+//            if (map.containsKey(a)) {
+//                List<Integer> temp = map.get(a);
+//                temp.add(b);
+//                map.put(a, temp);
+//            } else {
+//                List<Integer> temp = new ArrayList<>();
+//                temp.add(b);
+//                map.put(a, temp);
+//            }
+//        }
         int L = in.nextInt();
         int R = in.nextInt();
         // Warning: starting node is 1

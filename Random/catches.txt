@@ -23,3 +23,4 @@ check the initial condition in the beginning and then put the required condition
 6. Maintain partial sum for range queries. for range i, k (inclusive) ans = sum[k] - sum[i - 1]. Remember to add
 mod and then mod, because sum[k] - sum[i - 1] can be negative
 7. Look for Presentation Errors, a.k.a. is newline in the end?
+8. If you're using max trick, make sure to update it!!

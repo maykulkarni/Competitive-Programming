@@ -1,7 +1,6 @@
 package Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -9,13 +8,39 @@ import java.util.List;
  * Email : mayurkulkarni012@gmail.com
  */
 public class MiscUtils {
-    static List<List<Integer>> list = new ArrayList<>();
+    private static List<List<Integer>> list = new ArrayList<>();
+
+    private static void permute(int start, int[] input) {
+        if (start == input.length) {
+            //System.out.println(input);
+            List<Integer> temp = new ArrayList<>();
+            for (int x : input) {
+                temp.add(x);
+            }
+            list.add(temp);
+            return;
+        }
+        for (int i = start; i < input.length; i++) {
+            // swapping
+            int temp = input[i];
+            input[i] = input[start];
+            input[start] = temp;
+            // swap(input[i], input[start]);
+            permute(start + 1, input);
+            // swap(input[i],input[start]);
+            int temp2 = input[i];
+            input[i] = input[start];
+            input[start] = temp2;
+        }
+    }
 
     public static void main(String[] args) {
-        Integer[] arr = {0, 1, 2, 3};
-        do {
-            System.out.println(Arrays.toString(arr));
-        } while (MiscUtils.nextPermutation(arr) != null);
+        List<Integer> list = new ArrayList<>();
+        list.add(-10);
+        list.add(-10);
+        list.add(-4);
+        list.add(-99);
+        System.out.println(maximumSubsequenceValue(list));
     }
 
     public static Comparable[] nextPermutation(Comparable[] arr) {
@@ -54,10 +79,29 @@ public class MiscUtils {
         return -1;
     }
 
-    public int linearSearch(Comparable[] arr, int key) {
+    public static int linearSearch(Comparable[] arr, int key) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i].compareTo(key) == 0) return i;
         }
         return -1;
+    }
+
+    public static long listSum(List<Integer> list) {
+        long sum = 0;
+        for (int i : list) {
+            sum += i;
+        }
+        return sum;
+    }
+
+    public static long maximumSubsequenceValue(List<Integer> list) {
+        long max = list.stream().max(Integer::compare).get();
+        long sum = 0;
+        for (int i : list) {
+            sum += i;
+            if (sum > max) max = sum;
+            if (sum < 0) sum = 0;
+        }
+        return max;
     }
 }

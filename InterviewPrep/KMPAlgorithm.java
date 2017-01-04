@@ -54,6 +54,6 @@ class KMP {
     }
 
     public void solve() {
-        compareString("abcbcglx".toCharArray(), "bcgl".toCharArray());
+        compareString("abcbcglx".toCharArray(), "mm".toCharArray());
     }
 }

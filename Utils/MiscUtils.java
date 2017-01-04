@@ -11,32 +11,6 @@ import java.util.List;
 public class MiscUtils {
     static List<List<Integer>> list = new ArrayList<>();
 
-    public static void permute(int start, int[] input) {
-        if (start == input.length) {
-            //System.out.println(input);
-            List<Integer> temp = new ArrayList<>();
-            for (int x : input) {
-                temp.add(x);
-            }
-            list.add(temp);
-            return;
-        }
-        for (int i = start; i < input.length; i++) {
-            // swapping
-            int temp = input[i];
-            input[i] = input[start];
-            input[start] = temp;
-            // swap(input[i], input[start]);
-
-            permute(start + 1, input);
-            // swap(input[i],input[start]);
-
-            int temp2 = input[i];
-            input[i] = input[start];
-            input[start] = temp2;
-        }
-    }
-
     public static void main(String[] args) {
         Integer[] arr = {0, 1, 2, 3};
         do {

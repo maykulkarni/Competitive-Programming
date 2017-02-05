@@ -28,7 +28,7 @@ class SquareSubsequenceSolver {
         return x * 7 + 12 * y - 3;
     }
 
-    public long commonSubsequence(String input) {
+    private long commonSubsequence(String input) {
         long[][][] dp = new long[input.length() - 1][input.length()][input.length()];
         long answer = 0;
         int j = 0, k = 0;

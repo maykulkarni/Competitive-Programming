@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by Mayur Kulkarni on 2/5/2017.
  */
-public class Graph<T> {
+class Graph<T> {
     /**
      * Creates a generic Graph
      *
@@ -30,18 +30,6 @@ public class Graph<T> {
         this.size = size;
         this.isUniDirectional = isUniDirectional;
         graph = new HashMap<>();
-    }
-
-    /**
-     * Run the program using custom graph!
-     * @param args
-     */
-    public static void main(String[] args) {
-        Graph<Character> graph = new Graph<>(5, false);
-        graph.addEdge('A', 'B');
-        graph.addEdge('B', 'C');
-        graph.addEdge('C', 'A');
-        graph.printArticulationPoints();
     }
 
     /**
@@ -171,4 +159,20 @@ public class Graph<T> {
     private boolean isRoot(T currNode, Map<T, T> parent) {
         return parent.get(currNode) == null;
     }
+}
+
+public class ArticulationPoint {
+    /**
+     * Run the program using custom graph!
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        Graph<Character> graph = new Graph<>(5, false);
+        graph.addEdge('A', 'B');
+        graph.addEdge('B', 'C');
+        graph.addEdge('C', 'A');
+        graph.printArticulationPoints();
+    }
+
 }

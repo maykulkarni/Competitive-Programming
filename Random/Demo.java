@@ -1,20 +1,17 @@
 package Random;
 
+
+import java.util.Map;
+
 /**
  * Created by mayur on 4/9/16.
  */
-class temp {
-    int x;
-}
 public class Demo {
-    public static void chage(temp t) {
-        t.x = 1000;
+    public static void ins(Map<Integer, Integer> map, int key) {
+        map.compute(key, (k, v) -> v == null ? 1 : v + 1);
+    }
+    public static void main(String args[]) {
+
     }
 
-    public static void main(String args[]) {
-        temp t = new temp();
-        t.x = 10;
-        //chage(t);
-        System.out.println(t.x);
-    }
 }

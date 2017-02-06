@@ -24,3 +24,4 @@ check the initial condition in the beginning and then put the required condition
 mod and then mod, because sum[k] - sum[i - 1] can be negative
 7. Look for Presentation Errors, a.k.a. is newline in the end?
 8. If you're using max trick, make sure to update it!!
+9. For Graphs, check for cases like cylic graph (algorithms like topsort will fail), self loop etc.

@@ -159,6 +159,7 @@ class Graph<T> {
     private boolean isRoot(T currNode, Map<T, T> parent) {
         return parent.get(currNode) == null;
     }
+
 }
 
 public class ArticulationPoint {

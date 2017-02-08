@@ -1,5 +1,7 @@
 package Utils;
 
+import java.util.Arrays;
+
 /**
  * Created by Mayur Kulkarni on 12/12/2016.
  * Email : mayurkulkarni012@gmail.com
@@ -26,6 +28,13 @@ public class SearchUtils {
             }
         }
         return maxVal;
+    }
+
+    public static int maxInArrayStream(int[] arr) {
+        return Arrays.stream(arr)
+                .parallel()
+                .max()
+                .getAsInt();
     }
 
 

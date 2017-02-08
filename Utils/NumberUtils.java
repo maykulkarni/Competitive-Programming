@@ -198,8 +198,16 @@ public class NumberUtils {
 //        return b == 0 ? Math.abs(a) : gcd(b, a % b);
 //    }
 
-    private static int[][] identity(int n, int m) {
+    public static int[][] identity(int n, int m) {
         int[][] tmp = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            tmp[i][i] = 1;
+        }
+        return tmp;
+    }
+
+    public static double[][] identityDouble(int n, int m) {
+        double[][] tmp = new double[n][m];
         for (int i = 0; i < n; i++) {
             tmp[i][i] = 1;
         }

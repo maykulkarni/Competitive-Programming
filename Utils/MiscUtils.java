@@ -105,8 +105,18 @@ public class MiscUtils {
         return max;
     }
 
-    public static int[][] arrayCopy(int[][] inputArray) {
+    public static int[][] matrixDeepCopy(int[][] inputArray) {
         int[][] ans = new int[inputArray.length][inputArray[0].length];
+        for (int i = 0; i < inputArray.length; i++) {
+            for (int j = 0; j < inputArray[0].length; j++) {
+                ans[i][j] = inputArray[i][j];
+            }
+        }
+        return ans;
+    }
+
+    public static char[][] matrixDeepCopy(char[][] inputArray) {
+        char[][] ans = new char[inputArray.length][inputArray[0].length];
         for (int i = 0; i < inputArray.length; i++) {
             for (int j = 0; j < inputArray[0].length; j++) {
                 ans[i][j] = inputArray[i][j];

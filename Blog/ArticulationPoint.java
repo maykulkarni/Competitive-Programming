@@ -106,7 +106,7 @@ class Graph<T> {
     }
 
     /**
-     * DFS the graph represented by graph HashMap and find out articulation points
+     * tarjanSCC the graph represented by graph HashMap and find out articulation points
      * @param visited denotes the nodes which are already visited
      * @param visitedTime denotes the order in which nodes are visited
      * @param currNode the current node of this traversa;
@@ -132,6 +132,8 @@ class Graph<T> {
                 parent.put(adjNode, currNode);
                 childCount++;
                 DFS(visited, visitedTime, adjNode, lowTime, parent, articulationPoints);
+                // when visited time of current node <= low time of adjacent node
+                // this indicates the adjacent node is dependent on this node for connectivity
                 if (visitedTime.get(currNode) <= lowTime.get(adjNode)) {
                     isArticulationPoint = true;
                 } else {
@@ -141,7 +143,7 @@ class Graph<T> {
                 lowTime.compute(currNode, (node, lowtime) -> Math.min(lowTime.get(currNode), lowTime.get(adjNode)));
             }
         }
-        // first condition is satisfied only by root nodes of DFS, for rest of them there's
+        // first condition is satisfied only by root nodes of tarjanSCC, for rest of them there's
         // the second one
         if ((isRoot(currNode, parent) && childCount >= 2)
                 || (!isRoot(currNode, parent) && isArticulationPoint)) {
@@ -150,8 +152,8 @@ class Graph<T> {
     }
 
     /**
-     * Tell whether the currNode is the root of the DFS or not.
-     * The root of the DFS will have null as it's parent
+     * Tell whether the currNode is the root of the tarjanSCC or not.
+     * The root of the tarjanSCC will have null as it's parent
      * @param currNode The node you're interested in
      * @param parent parent HashMap who's key is node and value is it's parent
      * @return

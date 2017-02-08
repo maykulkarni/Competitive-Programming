@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by Mayur Kulkarni on 2/5/2017.
  */
-public class Graph<T> {
+public class Graph<T> implements Iterable<T> {
     /**
      * Creates a generic Graph
      *
@@ -14,12 +14,13 @@ public class Graph<T> {
      * graph: HashMap with key as node and value as their adjacency list
      * isUnidirectional: true if graph is unidirectional
      * time: used for articulation point, starts from 0, increments after
-     * passing every vertex.
+     *       passing every vertex.
+     * numberOfSCCs: counts the number of strongly connected components
      */
     private int size;
     private Map<T, List<T>> graph;
     private boolean isUniDirectional;
-    private int time = 0;
+    private int time;
 
     /**
      * Constructor of graph
@@ -30,18 +31,22 @@ public class Graph<T> {
         this.size = size;
         this.isUniDirectional = isUniDirectional;
         graph = new HashMap<>();
+        time = 0;
     }
 
     /**
-     * Run the program using custom graph!
+     * Main
      * @param args
      */
     public static void main(String[] args) {
-        Graph<Character> graph = new Graph<>(5, false);
+        Graph<Character> graph = new Graph<>(5, true);
         graph.addEdge('A', 'B');
         graph.addEdge('B', 'C');
         graph.addEdge('C', 'A');
-        graph.printArticulationPoints();
+//        graph.articulationPoints();
+        for (List<Character> scc : graph.stronglyConnectedComponents()) {
+            System.out.println(scc);
+        }
     }
 
     /**
@@ -107,7 +112,7 @@ public class Graph<T> {
     /**
      * Prints the articulation points of current graph
      */
-    public void printArticulationPoints() {
+    public Set<T> articulationPoints() {
         Set<T> visited = new HashSet<T>();
         Map<T, Integer> visitedTime = new HashMap<T, Integer>();
         Map<T, Integer> lowTime = new HashMap<T, Integer>();
@@ -115,12 +120,17 @@ public class Graph<T> {
         Set<T> articulationPoints = new HashSet<T>();
         for (T currNode : graph.keySet())
             if (!visited.contains(currNode))
-                DFS(visited, visitedTime, currNode, lowTime, parent, articulationPoints);
-        System.out.println(articulationPoints);
+                DFSArticulationPoint(visited, visitedTime, currNode, lowTime, parent, articulationPoints);
+        return articulationPoints;
     }
 
     /**
-     * DFS the graph represented by graph HashMap and find out articulation points
+     * Tarjan's algorithm to find articulation point.
+     * Criteria for a node for qualifying as an articulation point:
+     *  1. visitedTime of current node <= lowTime of any adjacent node
+     *  2. if current node is root node of DFS, and has more than 2 independent children
+     * for more: https://adventinprogramming.wordpress.com/2017/02/05/articulation-points-in-graph/
+     *
      * @param visited denotes the nodes which are already visited
      * @param visitedTime denotes the order in which nodes are visited
      * @param currNode the current node of this traversa;
@@ -128,10 +138,10 @@ public class Graph<T> {
      * @param parent parent of the current node
      * @param articulationPoints articulation points of the current graph
      */
-    public void DFS(Set<T> visited,
-                    Map<T, Integer> visitedTime,
-                    T currNode, Map<T, Integer> lowTime,
-                    Map<T, T> parent, Set<T> articulationPoints) {
+    public void DFSArticulationPoint(Set<T> visited,
+                                     Map<T, Integer> visitedTime,
+                                     T currNode, Map<T, Integer> lowTime,
+                                     Map<T, T> parent, Set<T> articulationPoints) {
         visited.add(currNode);
         visitedTime.put(currNode, time);
         lowTime.put(currNode, time);
@@ -145,7 +155,7 @@ public class Graph<T> {
             if (!visited.contains(adjNode)) {
                 parent.put(adjNode, currNode);
                 childCount++;
-                DFS(visited, visitedTime, adjNode, lowTime, parent, articulationPoints);
+                DFSArticulationPoint(visited, visitedTime, adjNode, lowTime, parent, articulationPoints);
                 if (visitedTime.get(currNode) <= lowTime.get(adjNode)) {
                     isArticulationPoint = true;
                 } else {
@@ -155,7 +165,7 @@ public class Graph<T> {
                 lowTime.compute(currNode, (node, lowtime) -> Math.min(lowTime.get(currNode), lowTime.get(adjNode)));
             }
         }
-        // first condition is satisfied only by root nodes of DFS, for rest of them there's
+        // first condition is satisfied only by root nodes of tarjanSCC, for rest of them there's
         // the second one
         if ((isRoot(currNode, parent) && childCount >= 2)
                 || (!isRoot(currNode, parent) && isArticulationPoint)) {
@@ -164,8 +174,8 @@ public class Graph<T> {
     }
 
     /**
-     * Tell whether the currNode is the root of the DFS or not.
-     * The root of the DFS will have null as it's parent
+     * Tell whether the currNode is the root of the tarjanSCC or not.
+     * The root of the tarjanSCC will have null as it's parent
      *
      * @param currNode The node you're interested in
      * @param parent   parent HashMap who's key is node and value is it's parent
@@ -173,5 +183,69 @@ public class Graph<T> {
      */
     private boolean isRoot(T currNode, Map<T, T> parent) {
         return parent.get(currNode) == null;
+    }
+
+
+    @Override
+    public Iterator<T> iterator() {
+        return graph.keySet().iterator();
+    }
+
+    public List<List<T>> stronglyConnectedComponents() {
+        Set<T> visited = new HashSet<T>();
+        Deque<T> stack = new ArrayDeque<T>();
+        Map<T, Integer> lowTime = new HashMap<T, Integer>();
+        Map<T, Integer> visitedTime = new HashMap<T, Integer>();
+        List<List<T>> SCCs = new ArrayList<>();
+        for (T node : this)
+            if (!visited.contains(node)) {
+                tarjanSCC(node, visited, stack, lowTime, visitedTime, SCCs);
+            }
+        return SCCs;
+    }
+
+    /**
+     * Uses Tarjan's algorithm to find the number of Strongly Connected Components.
+     * Criteria for node for qualifying to become a SCC root : lowTime(node) == visitedTime(node)
+     * Perform DFS and update lowTime, visitedTime. Whenever there's back edge set
+     * lowTime(currNode) = min(lowTime(currNode), lowTime(adjNode)
+     * lowTime(currNode) = visitedTime(currNode) indicates that this node is not dependent on
+     * any other node for connectivity
+     *
+     * @param currNode    current node of traversal
+     * @param visited     indicates whether or not visited
+     * @param stack       FILO stack inserting nodes in visiting order in DFS spanning tree
+     * @param lowTime     minimum low time of adjacent vertices
+     * @param visitedTime time when currNode was visited
+     * @param SCCs        list of list of nodes indicating list of SCCs
+     */
+    public void tarjanSCC(T currNode,
+                          Set<T> visited, Deque<T> stack,
+                          Map<T, Integer> lowTime,
+                          Map<T, Integer> visitedTime,
+                          List<List<T>> SCCs) {
+        lowTime.compute(currNode, (keyNode, lowTimeValue) -> time);
+        visitedTime.compute(currNode, (keyNode, lowTimeValue) -> time);
+        time++;
+        stack.push(currNode);
+        visited.add(currNode);
+        for (T adjNode : this.adjacencyList(currNode)) {
+            if (!visited.contains(adjNode)) {
+                tarjanSCC(adjNode, visited, stack, lowTime, visitedTime, SCCs);
+            }
+            lowTime.compute(currNode, (keyCurrNode, currNodeLowTime) ->
+                    Math.min(lowTime.get(currNode), lowTime.get(adjNode)));
+
+        }
+        if (visitedTime.get(currNode).equals(lowTime.get(currNode))) {
+            T poppedNode;
+            StringBuilder sb = new StringBuilder();
+            List<T> SCC = new LinkedList<T>();
+            while ((poppedNode = stack.pop()) != currNode) {
+                ((LinkedList<T>) SCC).offerFirst(poppedNode);
+            }
+            ((LinkedList<T>) SCC).offerFirst(currNode);
+            SCCs.add(SCC);
+        }
     }
 }

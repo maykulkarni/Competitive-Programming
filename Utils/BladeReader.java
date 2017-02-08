@@ -81,4 +81,12 @@ public class BladeReader {
     public long nextLong() {
         return Long.parseLong(next());
     }
+
+    public char[][] charGrid(int row, int cols) {
+        char[][] grid = new char[row][cols];
+        for (int i = 0; i < row; i++) {
+            grid[i] = next().toCharArray();
+        }
+        return grid;
+    }
 }

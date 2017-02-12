@@ -1,4 +1,4 @@
-package MyImplementations;
+package Algorithms;
 
 import Utils.NumberUtils;
 import Utils.PrintMat;

@@ -1,6 +1,6 @@
 package Hitlist;
 
-import MyImplementations.InputReader;
+import Algorithms.InputReader;
 
 import java.util.Arrays;
 

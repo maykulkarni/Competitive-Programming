@@ -1,4 +1,4 @@
-package MyImplementations;
+package Algorithms;
 
 /**
  * Created by mayur on 21/6/16.

@@ -1,4 +1,4 @@
-package MyImplementations;
+package Algorithms;
 
 import java.io.IOException;
 import java.io.InputStream;

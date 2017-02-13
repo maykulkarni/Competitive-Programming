@@ -16,12 +16,13 @@ public class Graph<T> implements Iterable<T> {
      * time: used for articulation point, starts from 0, increments after
      *       passing every vertex.
      * numberOfSCCs: counts the number of strongly connected components
+     * edgeWeight: edgeWeight of the edge connecting two nodes
      */
     private int size;
     private Map<T, List<T>> graph;
     private boolean isUniDirectional;
     private int time;
-
+    private Map<T, Map<T, Integer>> edgeWeight;
     /**
      * Constructor of graph
      * @param size size of graph
@@ -30,8 +31,9 @@ public class Graph<T> implements Iterable<T> {
     public Graph(int size, boolean isUniDirectional) {
         this.size = size;
         this.isUniDirectional = isUniDirectional;
-        graph = new HashMap<>();
+        graph = new HashMap<>(size);
         time = 0;
+        edgeWeight = new HashMap<T, Map<T, Integer>>(size);
     }
 
     /**
@@ -63,13 +65,22 @@ public class Graph<T> implements Iterable<T> {
         return sb.toString();
     }
 
+    public Set<T> verticesSet() {
+        return graph.keySet();
+    }
+
+    public int edgeWeight(T fromNode, T toNode) {
+        return edgeWeight.get(fromNode).get(toNode);
+    }
+
+
     /**
-     * Inserts toNode to the adjacenct list of fromNode
+     * Inserts toNode to the adjacency list of fromNode
      *
      * @param fromNode from node
      * @param toNode   to node
      */
-    private void insToMapGraph(T fromNode, T toNode) {
+    private void insertIntoGraphMap(T fromNode, T toNode) {
         graph.compute(fromNode, (key, value) -> {
             if (value == null) {
                 List<T> adjList = new ArrayList<>();
@@ -90,10 +101,35 @@ public class Graph<T> implements Iterable<T> {
      * @param toNode   to node
      */
     public void addEdge(T fromNode, T toNode) {
-        insToMapGraph(fromNode, toNode);
+        insertIntoGraphMap(fromNode, toNode);
         if (!isUniDirectional) {
-            insToMapGraph(toNode, fromNode);
+            insertIntoGraphMap(toNode, fromNode);
         }
+    }
+
+    public void insertIntoEdgeWeightMap(T fromNode, T toNode, int weight) {
+        edgeWeight.compute(fromNode, (fromNodeKey, edgeWeightMap) -> {
+            if (edgeWeightMap == null) {
+                Map<T, Integer> tmp = new HashMap<T, Integer>();
+                tmp.put(toNode, weight);
+                return tmp;
+            } else {
+                edgeWeightMap.compute(toNode, (toNodeKey, weightValue) -> {
+                    if (weightValue != null)
+                        throw new IllegalStateException("Edge from " + fromNode + " to " + toNode + " already exists." +
+                                " Parallel Edges not supported");
+                    return weight;
+                });
+                return edgeWeightMap;
+            }
+        });
+    }
+
+
+    public void addEdge(T fromNode, T toNode, int weight) {
+        addEdge(fromNode, toNode);
+        insertIntoEdgeWeightMap(fromNode, toNode, weight);
+        if (!isUniDirectional) insertIntoEdgeWeightMap(toNode, fromNode, weight);
     }
 
     /**

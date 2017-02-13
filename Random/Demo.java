@@ -1,10 +1,8 @@
 package Random;
 
 
-import DataStructures.Pair;
-
+import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -12,18 +10,14 @@ import java.util.List;
  */
 public class Demo {
     public static void main(String args[]) {
-        new Demo().meth();
-    }
-
-    public void meth() {
-        List<Pair<Integer, Integer>> pairList = new ArrayList<>();
-        pairList.add(new Pair<>(1, 5));
-        pairList.add(new Pair<>(2, 2));
-        pairList.add(new Pair<>(2, 22));
-        pairList.add(new Pair<>(1, 22));
-        pairList.sort(Comparator.comparingInt(Pair::firstValue)
-                .thenComparingInt(Pair::secondValue));
-
-        System.out.println(pairList);
+        List<BigInteger> x = new ArrayList<>();
+        x.add(new BigInteger("2"));
+        x.add(new BigInteger("3"));
+        BigInteger two = x.get(0);
+        BigInteger three = x.get(1);
+        System.out.println(two);
+        x.set(0, new BigInteger("123"));
+        System.out.println(two);
     }
 }
+

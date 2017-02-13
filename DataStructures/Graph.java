@@ -66,7 +66,9 @@ public class Graph<T> implements Iterable<T> {
     }
 
     public Set<T> verticesSet() {
-        return graph.keySet();
+        Set<T> keySet = new HashSet<T>();
+        graph.keySet().forEach(keySet::add);
+        return keySet;
     }
 
     public int edgeWeight(T fromNode, T toNode) {
@@ -138,6 +140,7 @@ public class Graph<T> implements Iterable<T> {
      * @return adjacency list of node specifief in key
      */
     public List<T> adjacencyList(T key) {
+
         if (graph.containsKey(key)) {
             return graph.get(key);
         } else {

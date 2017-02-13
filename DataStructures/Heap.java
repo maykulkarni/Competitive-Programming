@@ -84,7 +84,7 @@ public class Heap<T> {
         return index > 0;
     }
 
-    public GraphNode peek() {
+    public GraphNode<T> peek() {
         checkIfEmpty();
         return heapList.get(0);
     }
@@ -93,7 +93,7 @@ public class Heap<T> {
         if (heapList.isEmpty()) throw new IllegalStateException("Heap is empty!");
     }
 
-    public GraphNode poll() {
+    public GraphNode<T> poll() {
         checkIfEmpty();
         GraphNode item = heapList.get(0);
         heapList.set(0, heapList.get(heapList.size() - 1));
@@ -156,6 +156,12 @@ public class Heap<T> {
         } else {
             heapifySiftUp(index);
         }
+    }
+
+    public int getPriority(T node) {
+        return heapList.get(
+                indexOf.get(new GraphNode<T>(node, -1))
+        ).getWeight();
     }
 
     private void heapifySiftUp(int index) {

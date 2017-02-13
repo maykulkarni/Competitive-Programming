@@ -62,8 +62,9 @@ public class LUDecomposition {
     private void decompose() {
         double[][] m = {
                 {5, 3, 1},
-                {3, 3, 1},
-                {1, 1, 1}};
+                {10, 6, 2},
+                {15, 9, 3}
+        };
         new PrintMat(m);
         for (int i = 0; i < m.length - 1; i++) {
             for (int j = i + 1; j < m.length; j++) {

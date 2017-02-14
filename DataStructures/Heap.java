@@ -9,6 +9,7 @@ public class Heap<T> {
     private List<GraphNode<T>> heapList;
     private Map<GraphNode<T>, Integer> indexOf = new HashMap<GraphNode<T>, Integer>();
 
+    // todo
     Heap(int[] array) {
 
     }

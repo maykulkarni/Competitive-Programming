@@ -12,14 +12,10 @@ import java.util.Scanner;
  * Created by Uzumaki Naruto on 2/9/2017.
  */
 public class Kruskal {
-    public static void main(String[] args) {
-        new Kruskal().getMST();
-    }
 
-    public void getMST() {
-        List<Pair<Long, Pair<Long, Long>>> edgeList = acceptEdgeList();
+    public static long getMSTCost(List<Pair<Long, Pair<Long, Long>>> edgeList, int nodes) {
         edgeList.sort(Comparator.comparing(Pair::firstValue));
-        DisjointSetUnion dsu = new DisjointSetUnion(10);
+        DisjointSetUnion dsu = new DisjointSetUnion(nodes + 1);
         List<Pair<Long, Long>> mstList = new ArrayList<>();
         long mstCost = 0;
         for (Pair<Long, Pair<Long, Long>> pair : edgeList) {
@@ -29,8 +25,7 @@ public class Kruskal {
                 dsu.union(pair.q.p.intValue(), pair.q.q.intValue());
             }
         }
-        System.out.println(mstList);
-        System.out.println(mstCost);
+        return mstCost;
     }
 
     private List<Pair<Long, Pair<Long, Long>>> acceptEdgeList() {

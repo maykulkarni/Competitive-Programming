@@ -18,12 +18,10 @@ public class Prim {
     }
 
     /**
-     * 5
-     * 1 2 1
-     * 2 3 2
-     * 1 4 100
-     * 2 4 3
-     * 4 3 100
+     * Computes MST cost using Prims algorithm.
+     * Maintains a heap of vertices starting from start node
+     * with inf weight edges, then updates the weights in heap
+     * if newer edges yield lower weights
      */
     public void prims() {
         Graph<Integer> graph = acceptGraph();
@@ -35,16 +33,18 @@ public class Prim {
         Set<Integer> allNodes = graph.verticesSet();
         int curr = graph.verticesSet().iterator().next();
         allNodes.remove(curr);
+        long mstCost = 0;
         while (!allNodes.isEmpty()) {
             for (int adjNodes : graph.adjacencyList(curr)) {
                 if (allNodes.contains(adjNodes) && heap.getPriority(adjNodes) > graph.edgeWeight(curr, adjNodes))
                     heap.alterPriority(adjNodes, graph.edgeWeight(curr, adjNodes));
             }
             GraphNode<Integer> minNode = heap.poll();
-            System.out.println("MST includes edge from " + curr + " to " + minNode.getNodeName());
+            mstCost += minNode.getWeight();
             allNodes.remove(minNode.getNodeName());
             curr = minNode.getNodeName();
         }
+        System.out.println(mstCost);
     }
 
     private Graph<Integer> acceptGraph() {

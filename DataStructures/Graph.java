@@ -12,7 +12,7 @@ public class Graph<T> implements Iterable<T> {
      * Attributes:
      * size: represents size of the graph
      * graph: HashMap with key as node and value as their adjacency list
-     * isUnidirectional: true if graph is unidirectional
+     * unidirected: true if graph is bidirectional
      * time: used for articulation point, starts from 0, increments after
      *       passing every vertex.
      * numberOfSCCs: counts the number of strongly connected components
@@ -26,14 +26,14 @@ public class Graph<T> implements Iterable<T> {
     /**
      * Constructor of graph
      * @param size size of graph
-     * @param isUniDirectional whether or not it is bidirectional.
+     * @param unidirected true if graph is bidirectional.
      */
-    public Graph(int size, boolean isUniDirectional) {
+    public Graph(int size, boolean unidirected) {
         this.size = size;
-        this.isUniDirectional = isUniDirectional;
+        this.isUniDirectional = unidirected;
         graph = new HashMap<>(size);
         time = 0;
-        edgeWeight = new HashMap<T, Map<T, Integer>>(size);
+        edgeWeight = new HashMap<>(size);
     }
 
     /**

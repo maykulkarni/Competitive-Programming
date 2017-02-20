@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Created by Mayur Kulkarni on 2/5/2017.
+ *
  */
 public class Graph<T> implements Iterable<T> {
     /**
@@ -79,8 +80,8 @@ public class Graph<T> implements Iterable<T> {
     /**
      * Inserts toNode to the adjacency list of fromNode
      *
-     * @param fromNode from node
-     * @param toNode   to node
+     * @param fromNode  from node
+     * @param toNode    to node
      */
     private void insertIntoGraphMap(T fromNode, T toNode) {
         graph.compute(fromNode, (key, value) -> {
@@ -137,7 +138,7 @@ public class Graph<T> implements Iterable<T> {
     /**
      * Returns the adjacency list of the graph
      * @param key the index of node you're interested in
-     * @return adjacency list of node specifief in key
+     * @return adjacency list of node specific in key
      */
     public List<T> adjacencyList(T key) {
 
@@ -170,11 +171,11 @@ public class Graph<T> implements Iterable<T> {
      *  2. if current node is root node of DFS, and has more than 2 independent children
      * for more: https://adventinprogramming.wordpress.com/2017/02/05/articulation-points-in-graph/
      *
-     * @param visited denotes the nodes which are already visited
-     * @param visitedTime denotes the order in which nodes are visited
-     * @param currNode the current node of this traversa;
-     * @param lowTime denotes the minimum lowTime of adjacent vertices
-     * @param parent parent of the current node
+     * @param visited       denotes the nodes which are already visited
+     * @param visitedTime   denotes the order in which nodes are visited
+     * @param currNode      the current node of this traversal;
+     * @param lowTime       denotes the minimum lowTime of adjacent vertices
+     * @param parent        parent of the current node
      * @param articulationPoints articulation points of the current graph
      */
     public void DFSArticulationPoint(Set<T> visited,
@@ -198,10 +199,12 @@ public class Graph<T> implements Iterable<T> {
                 if (visitedTime.get(currNode) <= lowTime.get(adjNode)) {
                     isArticulationPoint = true;
                 } else {
-                    lowTime.compute(currNode, (node, nodeLowTime) -> Math.min(lowTime.get(currNode), lowTime.get(adjNode)));
+                    lowTime.compute(currNode, (node, nodeLowTime) ->
+                            Math.min(lowTime.get(currNode), lowTime.get(adjNode)));
                 }
             } else {
-                lowTime.compute(currNode, (node, lowtime) -> Math.min(lowTime.get(currNode), lowTime.get(adjNode)));
+                lowTime.compute(currNode, (node, lowtime) ->
+                        Math.min(lowTime.get(currNode), lowTime.get(adjNode)));
             }
         }
         // first condition is satisfied only by root nodes of tarjanSCC, for rest of them there's
@@ -216,9 +219,9 @@ public class Graph<T> implements Iterable<T> {
      * Tell whether the currNode is the root of the tarjanSCC or not.
      * The root of the tarjanSCC will have null as it's parent
      *
-     * @param currNode The node you're interested in
-     * @param parent   parent HashMap who's key is node and value is it's parent
-     * @return
+     * @param currNode  The node you're interested in
+     * @param parent    parent HashMap who's key is node and value is it's parent
+     * @return or not it is root
      */
     private boolean isRoot(T currNode, Map<T, T> parent) {
         return parent.get(currNode) == null;

@@ -223,12 +223,34 @@ public class NumberUtils {
         BigDecimal previousStep = BigDecimal.valueOf(10);
         BigDecimal two = BigDecimal.valueOf(2);
         BigDecimal currentStep = initialSeed;
-        while (!currentStep.equals(previousStep)) {
+        int numberOfIterations = 0;
+        while (!currentStep.equals(previousStep) && numberOfIterations < 100_000) {
             previousStep = currentStep;
             currentStep = currentStep.divide(two, 15, BigDecimal.ROUND_FLOOR)
                     .add(valBD.divide(two.multiply(currentStep), 15, BigDecimal.ROUND_FLOOR));
+            numberOfIterations++;
         }
         return currentStep.toBigInteger();
+    }
+
+    /**
+     * Return highly accurate square root of BigDecimal using Newton's Method
+     * PRECISION = 15 PLACES AFTER DECIMAL
+     *
+     * @param val value for calculating sqrt
+     * @return highly accurate square root
+     */
+    public static BigDecimal bigSquareRoot(BigDecimal val) {
+        BigDecimal valBD = val;
+        BigDecimal initialSeed = valBD.divide(BigDecimal.valueOf(10), 15, BigDecimal.ROUND_FLOOR);
+        BigDecimal previousStep = BigDecimal.valueOf(10);
+        BigDecimal two = BigDecimal.valueOf(2);
+        BigDecimal currentStep = initialSeed;
+        while (!currentStep.equals(previousStep)) {
+            previousStep = currentStep;
+            currentStep = currentStep.divide(two, 15, BigDecimal.ROUND_FLOOR).add(valBD.divide(two.multiply(currentStep), 15, BigDecimal.ROUND_FLOOR));
+        }
+        return currentStep;
     }
 
     public double euclideanDist(int x1, int x2, int y1, int y2) {

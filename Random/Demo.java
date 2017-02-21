@@ -1,7 +1,6 @@
 package Random;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public class Demo {
 
@@ -10,14 +9,14 @@ public class Demo {
     }
 
     public static void main(String[] args) {
-        System.out.println("Original : \t1000000");
-        BigInteger ans = approxSqrt(new BigInteger("1000000"));
+        System.out.println("Original : \t3");
+        BigDecimal ans = approxSqrt(new BigDecimal("49"));
         System.out.println("Sqrt : \t\t" + ans);
         System.out.println("Test : \t\t" + ans.multiply(ans));
     }
 
-    public static BigInteger approxSqrt(BigInteger val) {
-        BigDecimal valBD = new BigDecimal(val);
+    public static BigDecimal approxSqrt(BigDecimal val) {
+        BigDecimal valBD = val;
         BigDecimal initialSeed = valBD.divide(BigDecimal.valueOf(10), 15, BigDecimal.ROUND_FLOOR);
         BigDecimal previousStep = BigDecimal.valueOf(10);
         BigDecimal two = BigDecimal.valueOf(2);
@@ -26,6 +25,6 @@ public class Demo {
             previousStep = currentStep;
             currentStep = currentStep.divide(two, 15, BigDecimal.ROUND_FLOOR).add(valBD.divide(two.multiply(currentStep), 15, BigDecimal.ROUND_FLOOR));
         }
-        return currentStep.toBigInteger();
+        return currentStep;
     }
 }

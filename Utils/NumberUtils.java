@@ -1,5 +1,6 @@
 package Utils;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -217,15 +218,17 @@ public class NumberUtils {
      * @return approximate square root
      */
     public static BigInteger approxSqrt(BigInteger val) {
-        BigInteger initialSeed = val.divide(BigInteger.valueOf(10));
-        BigInteger previousStep = BigInteger.valueOf(10);
-        BigInteger two = BigInteger.valueOf(2);
-        BigInteger currentStep = initialSeed;
+        BigDecimal valBD = new BigDecimal(val);
+        BigDecimal initialSeed = valBD.divide(BigDecimal.valueOf(10), 15, BigDecimal.ROUND_FLOOR);
+        BigDecimal previousStep = BigDecimal.valueOf(10);
+        BigDecimal two = BigDecimal.valueOf(2);
+        BigDecimal currentStep = initialSeed;
         while (!currentStep.equals(previousStep)) {
             previousStep = currentStep;
-            currentStep = currentStep.divide(two).add(val.divide(two.multiply(currentStep)));
+            currentStep = currentStep.divide(two, 15, BigDecimal.ROUND_FLOOR)
+                    .add(valBD.divide(two.multiply(currentStep), 15, BigDecimal.ROUND_FLOOR));
         }
-        return currentStep;
+        return currentStep.toBigInteger();
     }
 
     public double euclideanDist(int x1, int x2, int y1, int y2) {

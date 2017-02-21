@@ -213,24 +213,13 @@ public class NumberUtils {
 
     /**
      * Returns square root using Newton's method
-     *
+     * NOT RECOMMENDED FOR VERY SMALL AND VERY LARGE NUMBERS
      * @param val value for calculating sqrt
      * @return approximate square root
      */
     public static BigInteger approxSqrt(BigInteger val) {
         BigDecimal valBD = new BigDecimal(val);
-        BigDecimal initialSeed = valBD.divide(BigDecimal.valueOf(10), 15, BigDecimal.ROUND_FLOOR);
-        BigDecimal previousStep = BigDecimal.valueOf(10);
-        BigDecimal two = BigDecimal.valueOf(2);
-        BigDecimal currentStep = initialSeed;
-        int numberOfIterations = 0;
-        while (!currentStep.equals(previousStep) && numberOfIterations < 100_000) {
-            previousStep = currentStep;
-            currentStep = currentStep.divide(two, 15, BigDecimal.ROUND_FLOOR)
-                    .add(valBD.divide(two.multiply(currentStep), 15, BigDecimal.ROUND_FLOOR));
-            numberOfIterations++;
-        }
-        return currentStep.toBigInteger();
+        return bigSquareRoot(valBD).toBigInteger();
     }
 
     /**
@@ -246,11 +235,17 @@ public class NumberUtils {
         BigDecimal previousStep = BigDecimal.valueOf(10);
         BigDecimal two = BigDecimal.valueOf(2);
         BigDecimal currentStep = initialSeed;
-        while (!currentStep.equals(previousStep)) {
+        int numberOfIterations = 0;
+        while (!currentStep.equals(previousStep) && numberOfIterations < 100_000) {
             previousStep = currentStep;
             currentStep = currentStep.divide(two, 15, BigDecimal.ROUND_FLOOR).add(valBD.divide(two.multiply(currentStep), 15, BigDecimal.ROUND_FLOOR));
+            numberOfIterations++;
         }
         return currentStep;
+    }
+
+    public static BigDecimal bigSquareRoot(BigInteger val) {
+        return bigSquareRoot(val);
     }
 
     public double euclideanDist(int x1, int x2, int y1, int y2) {

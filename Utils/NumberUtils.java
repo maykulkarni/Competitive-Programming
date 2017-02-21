@@ -230,22 +230,21 @@ public class NumberUtils {
      * @return highly accurate square root
      */
     public static BigDecimal bigSquareRoot(BigDecimal val) {
-        BigDecimal valBD = val;
-        BigDecimal initialSeed = valBD.divide(BigDecimal.valueOf(10), 15, BigDecimal.ROUND_FLOOR);
+        BigDecimal initialSeed = val.divide(BigDecimal.valueOf(10), 15, BigDecimal.ROUND_FLOOR);
         BigDecimal previousStep = BigDecimal.valueOf(10);
         BigDecimal two = BigDecimal.valueOf(2);
         BigDecimal currentStep = initialSeed;
         int numberOfIterations = 0;
         while (!currentStep.equals(previousStep) && numberOfIterations < 100_000) {
             previousStep = currentStep;
-            currentStep = currentStep.divide(two, 15, BigDecimal.ROUND_FLOOR).add(valBD.divide(two.multiply(currentStep), 15, BigDecimal.ROUND_FLOOR));
+            currentStep = currentStep.divide(two, 15, BigDecimal.ROUND_FLOOR).add(val.divide(two.multiply(currentStep), 15, BigDecimal.ROUND_FLOOR));
             numberOfIterations++;
         }
         return currentStep;
     }
 
     public static BigDecimal bigSquareRoot(BigInteger val) {
-        return bigSquareRoot(val);
+        return bigSquareRoot(new BigDecimal(val));
     }
 
     public double euclideanDist(int x1, int x2, int y1, int y2) {

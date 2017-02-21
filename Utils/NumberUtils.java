@@ -193,10 +193,6 @@ public class NumberUtils {
         }
         return tmp;
     }
-//
-//    public static long gcd(long a, long b) {
-//        return b == 0 ? Math.abs(a) : gcd(b, a % b);
-//    }
 
     public static int[][] identity(int n, int m) {
         int[][] tmp = new int[n][m];
@@ -212,6 +208,24 @@ public class NumberUtils {
             tmp[i][i] = 1;
         }
         return tmp;
+    }
+
+    /**
+     * Returns square root using Newton's method
+     *
+     * @param val value for calculating sqrt
+     * @return approximate square root
+     */
+    public static BigInteger approxSqrt(BigInteger val) {
+        BigInteger initialSeed = val.divide(BigInteger.valueOf(10));
+        BigInteger previousStep = BigInteger.valueOf(10);
+        BigInteger two = BigInteger.valueOf(2);
+        BigInteger currentStep = initialSeed;
+        while (!currentStep.equals(previousStep)) {
+            previousStep = currentStep;
+            currentStep = currentStep.divide(two).add(val.divide(two.multiply(currentStep)));
+        }
+        return currentStep;
     }
 
     public double euclideanDist(int x1, int x2, int y1, int y2) {

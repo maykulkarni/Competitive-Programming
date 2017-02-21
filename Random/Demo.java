@@ -1,33 +1,29 @@
 package Random;
 
+import java.math.BigInteger;
+
 public class Demo {
+
+    public static double step(double xn, double alpha) {
+        return (0.5 * xn) + (alpha / (2 * xn));
+    }
+
     public static void main(String[] args) {
-        ListNode myList = new Demo().new ListNode();
-        myList.node = 1;
-        myList.next = new Demo().new ListNode();
-        myList.next.node = 2;
-        myList.next.next = new Demo().new ListNode();
-        myList.next.next.node = 3;
-        new Demo().reverse(null, myList);
-        System.out.println(myList.node + " " + myList.next.node + " " + myList.next.next.node);
+        System.out.println("Original : \t1000000567856785678");
+        BigInteger ans = approxSqrt(new BigInteger("1000000567856785678"));
+        System.out.println("Sqrt : \t\t" + ans);
+        System.out.println("Test : \t\t" + ans.multiply(ans));
     }
 
-    public void reverse(ListNode prev, ListNode currNode) {
-        if (currNode == null) {
-            return;
-        } else {
-            reverse(currNode, currNode.next);
-            currNode.next = prev;
+    public static BigInteger approxSqrt(BigInteger val) {
+        BigInteger initialSeed = val.divide(BigInteger.valueOf(10));
+        BigInteger previousStep = BigInteger.valueOf(10);
+        BigInteger two = BigInteger.valueOf(2);
+        BigInteger currentStep = initialSeed;
+        while (!currentStep.equals(previousStep)) {
+            previousStep = currentStep;
+            currentStep = currentStep.divide(two).add(val.divide(two.multiply(currentStep)));
         }
-    }
-
-    class ListNode {
-        int node;
-        ListNode next;
-
-        @Override
-        public String toString() {
-            return String.valueOf(this.node);
-        }
+        return currentStep;
     }
 }

@@ -247,6 +247,25 @@ public class NumberUtils {
         return bigSquareRoot(new BigDecimal(val));
     }
 
+    /**
+     * Checks if number is prime using AKS Primality test
+     *
+     * @param n the number
+     * @return true if its prime, false otherwise
+     */
+    public static boolean isPrimeAKS(long n) {
+        if (n <= 1) return false;
+        if (n <= 3) return true;
+
+        if (n % 2 == 0 || n % 3 == 0) return false;
+
+        for (int i = 5; i * i <= n; i = i + 6)
+            if (n % i == 0 || n % (i + 2) == 0)
+                return false;
+
+        return true;
+    }
+
     public double euclideanDist(int x1, int x2, int y1, int y2) {
         return Math.sqrt(Math.abs(x1 - x2) * Math.abs(x1 - x2)
                 + Math.abs(y1 - y2) * Math.abs(y1 - y2));
